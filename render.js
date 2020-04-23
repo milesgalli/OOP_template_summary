@@ -1,32 +1,66 @@
-// filter function
-// filter depending on the role
+const path = require("path");
+const fs = require("fs");
 
-// make seperate functions to render each role
+const templatesDir = path.resolve(__dirname, "../templates");
 
-// combine into main html page.
+const render = employees => {
+  const html = [];
 
-// function generateHtml() {
+  html.push(employees
+    .filter(employee => employee.getRole() === "Manager")
+    .map(manager => renderManager(manager))
+  );
+  html.push(employees
+    .filter(employee => employee.getRole() === "Engineer")
+    .map(engineer => renderEngineer(engineer))
+  );
+  html.push(employees
+    .filter(employee => employee.getRole() === "Intern")
+    .map(intern => renderIntern(intern))
+  );
 
-//  teamArray.forEach(element => {
+  return renderMain(html.join(""));
 
-//    if(element === getRole("engineer")
+};
 
-//  });
+const renderManager = manager => {
+  let template = fs.readFileSync(path.resolve(templatesDir, "manager.html"), "utf8");
+  template = replacePlaceholders(template, "name", manager.getName());
+  template = replacePlaceholders(template, "role", manager.getRole());
+  template = replacePlaceholders(template, "email", manager.getEmail());
+  template = replacePlaceholders(template, "id", manager.getId());
+  template = replacePlaceholders(template, "officeNumber", manager.getOfficeNumber());
+  return template;
+};
 
-//  fs.writeFileSync("index.html")
-// // search and replace the objects in the html file
-// //create a loop, to loop through the team array to find, the role
+const renderEngineer = engineer => {
+  let template = fs.readFileSync(path.resolve(templatesDir, "engineer.html"), "utf8");
+  template = replacePlaceholders(template, "name", engineer.getName());
+  template = replacePlaceholders(template, "role", engineer.getRole());
+  template = replacePlaceholders(template, "email", engineer.getEmail());
+  template = replacePlaceholders(template, "id", engineer.getId());
+  template = replacePlaceholders(template, "github", engineer.getGithub());
+  return template;
+};
 
-// }
-function internRender(internObj) {
-  fs.readFileSync("intern.html", "utf8");
+const renderIntern = intern => {
+  let template = fs.readFileSync(path.resolve(templatesDir, "intern.html"), "utf8");
+  template = replacePlaceholders(template, "name", intern.getName());
+  template = replacePlaceholders(template, "role", intern.getRole());
+  template = replacePlaceholders(template, "email", intern.getEmail());
+  template = replacePlaceholders(template, "id", intern.getId());
+  template = replacePlaceholders(template, "school", intern.getSchool());
+  return template;
+};
 
-   //regular expresssion to go through the html to find double parnethesis 
+const renderMain = html => {
+  const template = fs.readFileSync(path.resolve(templatesDir, "main.html"), "utf8");
+  return replacePlaceholders(template, "team", html);
+};
 
-   // do this for name, id, 
+const replacePlaceholders = (template, placeholder, value) => {
+  const pattern = new RegExp("{{ " + placeholder + " }}", "gm");
+  return template.replace(pattern, value);
+};
 
-   // loop through the team array, filter them out using manager 
-
-   // 
-
-}
+module.exports = render;
