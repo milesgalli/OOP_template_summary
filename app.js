@@ -8,19 +8,12 @@ const path = require("path");
 
 const teamArray = [];
 
-// need to get the answer from employee type
-// need the index of the first question to compare it to the answer of
-// the answer from this quesiton will show the enginner, manager or intern promot\
-// name
-//id
-//email
-
-// regex -- regular expression
-
 const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 ​
 const render = require("./lib/htmlRenderer");
+
+
 
 function createManager() {
   if (teamArray.length === 0) {
@@ -180,6 +173,16 @@ function createIntern() {
       addTeamMember();
     });
 }
+
+
+function buildTeam() {
+  // Create the output directory if the output path doesn't exist
+  if (!fs.existsSync(OUTPUT_DIR)) {
+    fs.mkdirSync(OUTPUT_DIR)
+  }
+  fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
+}
+
 
 createManager(); 
 
