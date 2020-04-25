@@ -6,12 +6,11 @@ const fs = require("fs");
 const inquirer = require("inquirer");
 const path = require("path"); 
 
-const teamArray = [];
-
+const teamArray= [];
 const OUTPUT_DIR = path.resolve(__dirname, "output")
-const outputPath = path.join(OUTPUT_DIR, "team.html");
-​
-const render = require("./lib/htmlRenderer");
+
+const outputPath = path.join(OUTPUT_DIR, "team.html")
+const render = require("./lib/htmlRender");
 
 
 
@@ -91,7 +90,9 @@ function addTeamMember() {
         createManager();
       } else {
         console.log("the html has been generated");
-        generateHtml();
+        let html = render(teamArray); 
+        fs.writeFileSync( outputPath, html)
+
       }
     });
 }
@@ -175,13 +176,7 @@ function createIntern() {
 }
 
 
-function buildTeam() {
-  // Create the output directory if the output path doesn't exist
-  if (!fs.existsSync(OUTPUT_DIR)) {
-    fs.mkdirSync(OUTPUT_DIR)
-  }
-  fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
-}
+
 
 
 createManager(); 
