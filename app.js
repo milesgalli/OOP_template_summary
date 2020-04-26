@@ -65,14 +65,14 @@ function addTeamMember() {
 
         name: "addMember",
 
-        message: "what team member would you like to add ?",
+        message: "What team member would you like to add ?",
 
         choices: [
-          "intern",
+          "Intern",
 
-          "engineer",
+          "Engineer",
 
-          "manager",
+          "Manager",
 
           "I dont want to add anymore team members",
         ],
@@ -89,7 +89,7 @@ function addTeamMember() {
       } else if (addMember === "manager") {
         createManager();
       } else {
-        console.log("the html has been generated");
+        console.log("The html has been generated!");
         let html = render(teamArray); 
         fs.writeFileSync( outputPath, html)
 
@@ -103,25 +103,25 @@ function createEngineer() {
       {
         name: "engineerName",
 
-        message: "what is the engineers name ?",
+        message: "What is the engineers name ?",
       },
 
       {
         name: "engineerID",
 
-        message: "what is the engineers ID ?",
+        message: "What is the engineers ID ?",
       },
 
       {
         name: "engineerEmail",
 
-        message: "what is the engineers email ?",
+        message: "What is the engineers email ?",
       },
 
       {
         name: "engineerGithub",
 
-        message: "what is the engineers github username ?",
+        message: "What is the engineers github username ?",
       },
     ])
     .then((answers) => {
@@ -142,25 +142,25 @@ function createIntern() {
       {
         name: "internName",
 
-        message: "what is the interns name ?",
+        message: "What is the interns name ?",
       },
 
       {
         name: "internID",
 
-        message: "what is the interns ID ?",
+        message: "What is the interns ID ?",
       },
 
       {
         name: "internEmail",
 
-        message: "what is the interns email ?",
+        message: "What is the interns email ?",
       },
 
       {
         name: "internSchool",
 
-        message: "what school did the intern go to ?",
+        message: "What school did the intern go to ?",
       },
     ])
     .then((answers) => {
