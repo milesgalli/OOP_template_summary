@@ -68,13 +68,13 @@ function addTeamMember() {
         message: "What team member would you like to add ?",
 
         choices: [
-          "Intern",
+          "intern",
 
-          "Engineer",
+          "engineer",
 
-          "Manager",
+          "manager",
 
-          "I dont want to add anymore team members",
+          "i dont want to add anymore team members",
         ],
 
       },
